@@ -13,22 +13,73 @@ class Contenu(Enum):
 
 def creer_case(etat=Contenu.VIDE, animal=None):
     # TODO: Créer et retourner un dictionnaire représentant une case. Utiliser les arguments pour initialiser l'état et l'animal dans la case.
-    pass
+    case = {"etat": etat, "animal" : animal}
+    
+    return case
+
 
 
 def creer_grille(nb_lignes, nb_colonnes):
     # TODO: Créer une matrice 2D de cases vides et la retourner sous forme de dictionnaire
-    # TODO: Dans le dictionnaire, ajouter des métadonnées décrites dans l'énoncé (nombre de proies, de prédateurs, etc.)
-    pass
+    grille = []
 
+
+
+    for i in range(nb_lignes):
+        lignes = [creer_case() for y in range(nb_colonnes)]
+        grille.append(lignes)
+
+        
+
+    # TODO: Dans le dictionnaire, ajouter des métadonnées décrites dans l'énoncé (nombre de proies, de prédateurs, etc.)
+
+    matrix = {"matrice": grille, "nb_proies": 0, "nb_predateurs" : 0, "nb_lignes": nb_lignes, "nb_colonnes":nb_colonnes}
+
+    return matrix
+
+
+def obtenir_case(grille, ligne, colonne):
+    # TODO: Creer une fonction qui recupere un case specifique dans la grille
+
+    #entrer dans le dictionnaire pour acceder a la matrice
+
+    dans_matrice = grille["matrice"]
+
+    #selectionner la case specifique 
+    case_specifique = dans_matrice[ligne][colonne]
+
+    return case_specifique
+
+def obtenir_etat(grille, ligne, colonne):
+    
+    # TODO: Creer une fonction qui recupere un case specifique dans la grille et revoie simplement etat de la case
+
+    #entrer dans le dictionnaire pour acceder a la matrice
+
+    dans_matrice = grille["matrice"]
+    
+
+    #selectionner la case specifique 
+    case_specifique = dans_matrice[ligne][colonne]
+    #selection la secontion etat dans la case
+    etat_dans_case = case_specifique["etat"]
+
+    return etat_dans_case
+
+grille = creer_grille(3, 3)
+etat = obtenir_etat(grille, 1, 1)
+print(etat)
 
 def obtenir_population(grille):
     # TODO: Retourner un tuple contenant le nombre actuel de proies et de prédateurs dans la grille (Tuple[Int, Int])
+    print()
+
     pass
 
 
 def obtenir_dimensions(grille):
-    # TODO: Retourner un tuple avec le nombre de lignes et de colonnes de la grille (Tuple[Int, Int])
+    # TODO: Retourner un tduple avec le nombre de lignes et de colonnes de la grille (Tuple[Int, Int])
+
     pass
 
 
