@@ -66,9 +66,24 @@ def obtenir_etat(grille, ligne, colonne):
 
     return etat_dans_case
 
+def obtenir_animal(grille, ligne, colonne):
+    # TODO: Retourner l'animal présent dans la case aux coordonnées données (ligne, col) (Dict)
+
+    dans_matrice = grille["matrice"]
+
+    #selectionner la case specifique 
+    case_specifique = dans_matrice[ligne][colonne]
+    animal = case_specifique["animal"]
+
+    return animal
+
+	
 grille = creer_grille(3, 3)
-etat = obtenir_etat(grille, 1, 1)
-print(etat)
+for i in range(3):
+    for j in range(3):
+        print(obtenir_animal(grille, i, j))
+
+
 
 def obtenir_population(grille):
     # TODO: Retourner un tuple contenant le nombre actuel de proies et de prédateurs dans la grille (Tuple[Int, Int])
