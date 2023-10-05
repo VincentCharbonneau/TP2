@@ -18,7 +18,6 @@ def creer_case(etat=Contenu.VIDE, animal=None):
     return case
 
 
-
 def creer_grille(nb_lignes, nb_colonnes):
     # TODO: Créer une matrice 2D de cases vides et la retourner sous forme de dictionnaire
     grille = []
@@ -50,6 +49,7 @@ def obtenir_case(grille, ligne, colonne):
 
     return case_specifique
 
+
 def obtenir_etat(grille, ligne, colonne):
     
     # TODO: Creer une fonction qui recupere un case specifique dans la grille et revoie simplement etat de la case
@@ -66,6 +66,7 @@ def obtenir_etat(grille, ligne, colonne):
 
     return etat_dans_case
 
+
 def obtenir_animal(grille, ligne, colonne):
     # TODO: Retourner l'animal présent dans la case aux coordonnées données (ligne, col) (Dict)
 
@@ -77,29 +78,86 @@ def obtenir_animal(grille, ligne, colonne):
 
     return animal
 
-	
-grille = creer_grille(3, 3)
-for i in range(3):
-    for j in range(3):
-        print(obtenir_animal(grille, i, j))
+
+def definir_animal(grille, animal, ligne, col):
+    # TODO: Placer un animal (sous forme de dictionnaire) sur la case indiquée par les coordonnées (ligne, col).
+    
+    #matrice 
+    dans_matrice = grille["matrice"]
+    #creer une case
+    case = {"etat": Contenu.VIDE, "animal" : animal}
+
+    #remplace la case avec animal et son contenu
+    dans_matrice[ligne][col] = case
+    
+    pass
+
+
+def definir_case(grille, case, ligne, col):
+    #TODO cette fonction effectue la meme chose que definir_animal, mais actuallise aussi le contenu de la case
+
+    #matrice 
+    dans_matrice = grille["matrice"]
+
+    #remplace la case avec animal et son contenu
+    dans_matrice[ligne][col] = case
+    
+    pass
+
+
+def vider_case(grille, ligne, col):
+    # TODO: Écraser la case située à la ligne et la colonne données avec une case vide
+
+    
+    #matrice 
+    dans_matrice = grille["matrice"]
+
+    #case vide
+    case_vide = {"etat": Contenu.VIDE, "animal" : None}
+
+    #remplace la case avec animal et son contenu
+    dans_matrice[ligne][col] = case_vide
+    
+    pass
+
+
+    pass
 
 
 
 def obtenir_population(grille):
     # TODO: Retourner un tuple contenant le nombre actuel de proies et de prédateurs dans la grille (Tuple[Int, Int])
-    print()
+    
+    #grille = dict
+    #dans_matrice = liste qui contient les liste(ligne)
+    #liste(ligne) = liste qui contient des case
+    #case = dict qui contiennnet un etat qui est une cle
 
-    pass
+    dans_matrice = grille["matrice"]
 
+
+    for ligne in dans_matrice:
+        for case in ligne:
+            nb_proie = case.count(Contenu.PROIE)
+            nb_predateur = case.count(Contenu.PREDATEUR)
+        
+
+    
+
+    return (nb_proie, nb_predateur)
+
+
+grille = creer_grille(3, 3)
+for i in range(3):
+    for j in range(3):
+        definir_etat(grille , Contenu.PROIE, i, j)
+        definir_animal(grille , creer_animal(), i, j)
+        incrementer_nb_proies(grille)
+print(obtenir_population(grille))
 
 def obtenir_dimensions(grille):
     # TODO: Retourner un tduple avec le nombre de lignes et de colonnes de la grille (Tuple[Int, Int])
 
-    pass
-
-
-def obtenir_animal(grille, ligne, col):
-    # TODO: Retourner l'animal présent dans la case aux coordonnées données (ligne, col) (Dict)
     pass
 
 
@@ -128,25 +186,9 @@ def check_nb_proies(grille, max_val):
     pass
 
 
-def vider_case(grille, ligne, col):
-    # TODO: Écraser la case située à la ligne et la colonne données avec une case vide
-    pass
-
-
 def definit_etat(grille, etat, ligne, col):
     # TODO: Mettre à jour l'état de la case située à la ligne et la colonne données.
     # Utiliser le paramètre 'etat', qui est une valeur de l'Enum Contenu (VIDE, PROIE, PREDATEUR).
-    pass
-
-
-def definir_animal(grille, animal, ligne, col):
-    # TODO: Placer un animal (sous forme de dictionnaire) sur la case indiquée par les coordonnées (ligne, col).
-    pass
-
-
-def obtenir_etat(grille, ligne, col):
-    # TODO: Obtenir et retourner l'état actuel de la case à la position (ligne, col).
-    # Le type de retour est une valeur de l'Enum Contenu (VIDE, PROIE, PREDATEUR).
     pass
 
 
