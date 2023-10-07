@@ -237,16 +237,33 @@ def choix_voisin_autour(grille, ligne, col, contenu: Contenu):
     #       Si le contenu n'est pas VIDE, le voisin doit être disponible (voir la fonction obtenir_disponibilite).
     # Indice: Utiliser la fonction "ajuster_position_pour_grille_circulaire" pour ajuster les positions des voisins qui sont en dehors de la grille.
 
+    lig_voisin, col_voisin = None, None
+    tabcases = []
+    nb_ligne, nb_col = obtenir_dimensions(grille)
 
-    #lol
-    
+    for i in range(nb_ligne - 1, nb_ligne + 1):   
+        for j in range(nb_col - 1, nb_col + 1):
+            if i != ligne or j != col:
+                i2, j2 = ajuster_position_pour_grille_circulaire(i, j, nb_ligne, nb_col)
+                animal = obtenir_animal(grille, i2, j2)
+            if obtenir_etat(grille, i2, j2) == contenu and (Contenu.VIDE or obtenir_disponibilite(animal)):
+                tabcases.append((i2, j2))
 
 
+    if not tabcases:
+        (lig_voisin, col_voisin) = random.choice(tabcases)
+        return len(tabcases), lig_voisin, col_voisin
+        
+    else: 
+        return len(tabcases), None, None
+
+        
+
+grille = creer_grille(3, 3)
+nb_voisin, ligne, colonne = choix_voisin_autour(grille , 1, 1, Contenu.VIDE)
+print(nb_voisin, (ligne, colonne) in [(0, 0), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1), (2, 2)])
 
 
-
-
-    pass
 
 def definit_etat(grille, etat, ligne, col):
     # TODO: Mettre à jour l'état de la case située à la ligne et la colonne données.
