@@ -236,6 +236,16 @@ def choix_voisin_autour(grille, ligne, col, contenu: Contenu):
     # TODO: Renvoyer le nombre total de ces voisins, ainsi que les coordonnées d'un voisin choisi aléatoirement (Tuple).
     #       Si le contenu n'est pas VIDE, le voisin doit être disponible (voir la fonction obtenir_disponibilite).
     # Indice: Utiliser la fonction "ajuster_position_pour_grille_circulaire" pour ajuster les positions des voisins qui sont en dehors de la grille.
+
+
+    #lol
+    
+
+
+
+
+
+
     pass
 
 def definit_etat(grille, etat, ligne, col):
