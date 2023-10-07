@@ -117,12 +117,8 @@ def vider_case(grille, ligne, col):
 
     #remplace la case avec animal et son contenu
     dans_matrice[ligne][col] = case_vide
-    
-    pass
-
 
     pass
-
 
 
 def obtenir_population(grille):
@@ -135,56 +131,112 @@ def obtenir_population(grille):
 
     dans_matrice = grille["matrice"]
 
+    nb_proie = 0
+    nb_predateur = 0
 
     for ligne in dans_matrice:
         for case in ligne:
-            nb_proie = case.count(Contenu.PROIE)
-            nb_predateur = case.count(Contenu.PREDATEUR)
+            
+
+            if case["etat"] is Contenu.PROIE:
+                nb_proie += 1
+            if case["etat"] is Contenu.PREDATEUR:
+                nb_predateur += 1
         
 
+    return (nb_proie, nb_predateur)
     
 
-    return (nb_proie, nb_predateur)
 
-
-grille = creer_grille(3, 3)
-for i in range(3):
-    for j in range(3):
-        definir_etat(grille , Contenu.PROIE, i, j)
-        definir_animal(grille , creer_animal(), i, j)
-        incrementer_nb_proies(grille)
-print(obtenir_population(grille))
 
 def obtenir_dimensions(grille):
     # TODO: Retourner un tduple avec le nombre de lignes et de colonnes de la grille (Tuple[Int, Int])
 
-    pass
+
+    matrice = grille["matrice"]
+
+    nb_ligne = 0
+    nb_col = 0
+
+    for ligne in matrice:
+        nb_ligne += 1
+        for col in ligne:
+            nb_col += 1
+
+    nb_col /= nb_ligne
+
+    return (nb_ligne, int(nb_col))
 
 
 def incrementer_nb_proies(grille):
     # TODO: Augmenter le compteur du nombre de proies dans la grille de 1 (Int)
+    
+    grille["nb_proies"] += 1
+    
     pass
 
 
 def decrementer_nb_proies(grille):
     # TODO: Diminuer le compteur du nombre de proies dans la grille de 1 (Int)
-    pass
+
+    if grille["nb_proies"] > 0:
+        grille["nb_proies"] -= 1
+    else:
+        pass
 
 
 def incrementer_nb_predateurs(grille):
     # TODO: Augmenter le compteur du nombre de prédateurs dans la grille de 1 (Int)
+    
+    grille["nb_predateurs"] += 1
+
     pass
 
 
 def decrementer_nb_predateurs(grille):
     # TODO: Diminuer le compteur du nombre de prédateurs dans la grille de 1 (Int)
-    pass
+
+    if grille["nb_predateurs"] > 0:
+        grille["nb_predateurs"] -= 1
+    else:
+        pass
+    
 
 
 def check_nb_proies(grille, max_val):
     # TODO: Vérifier si le nombre actuel de proies dans la grille est inférieur à max_val (Booléen)
-    pass
 
+    if grille["nb_proies"] < max_val:
+        return True
+    else:
+        return False
+
+def ajuster_position_pour_grille_circulaire(lig, col, dim_lig, dim_col):
+    # TODO: Ajuster la position (ligne, colonne) pour une grille circulaire en utilisant les dimensions de la grille.
+    # Indice: Un modulo (%) peut être utile.
+
+    
+    if lig <= -1:
+        lig %= dim_lig
+
+    elif lig >= (dim_lig):
+        lig %= dim_lig
+
+    if col <= -1:
+        col %= dim_col
+
+    elif col >= (dim_col):
+        col %= dim_col
+        
+    return (lig, col)
+
+
+def choix_voisin_autour(grille, ligne, col, contenu: Contenu):
+    # TODO: Chercher tous les voisins autour de la cellule (ligne, col) qui correspondent au "contenu" donné (Enum).
+    # TODO: Renvoyer le nombre total de ces voisins, ainsi que les coordonnées d'un voisin choisi aléatoirement (Tuple).
+    #       Si le contenu n'est pas VIDE, le voisin doit être disponible (voir la fonction obtenir_disponibilite).
+    # Indice: Utiliser la fonction "ajuster_position_pour_grille_circulaire" pour ajuster les positions des voisins qui sont en dehors de la grille.
+    pass
 
 def definit_etat(grille, etat, ligne, col):
     # TODO: Mettre à jour l'état de la case située à la ligne et la colonne données.
@@ -197,19 +249,6 @@ def generer_entier(min_val, max_val):
     # Le résultat doit être un entier.
     pass
 
-
-def ajuster_position_pour_grille_circulaire(lig, col, dim_lig, dim_col):
-    # TODO: Ajuster la position (ligne, colonne) pour une grille circulaire en utilisant les dimensions de la grille.
-    # Indice: Un modulo (%) peut être utile.
-    pass
-
-
-def choix_voisin_autour(grille, ligne, col, contenu: Contenu):
-    # TODO: Chercher tous les voisins autour de la cellule (ligne, col) qui correspondent au "contenu" donné (Enum).
-    # TODO: Renvoyer le nombre total de ces voisins, ainsi que les coordonnées d'un voisin choisi aléatoirement (Tuple).
-    #       Si le contenu n'est pas VIDE, le voisin doit être disponible (voir la fonction obtenir_disponibilite).
-    # Indice: Utiliser la fonction "ajuster_position_pour_grille_circulaire" pour ajuster les positions des voisins qui sont en dehors de la grille.
-    pass
 
 
 def remplir_grille(grille, pourcentage_proie, pourcentage_predateur):
