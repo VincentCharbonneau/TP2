@@ -200,7 +200,6 @@ def decrementer_nb_predateurs(grille):
         pass
     
 
-
 def check_nb_proies(grille, max_val):
     # TODO: Vérifier si le nombre actuel de proies dans la grille est inférieur à max_val (Booléen)
 
@@ -208,6 +207,7 @@ def check_nb_proies(grille, max_val):
         return True
     else:
         return False
+
 
 def ajuster_position_pour_grille_circulaire(lig, col, dim_lig, dim_col):
     # TODO: Ajuster la position (ligne, colonne) pour une grille circulaire en utilisant les dimensions de la grille.
@@ -312,9 +312,13 @@ def remplir_grille(grille, pourcentage_proie, pourcentage_predateur):
     pass
 
 
-def definit_etat(grille, etat, ligne, col):
+def definir_etat(grille, etat, ligne, col):
     # TODO: Mettre à jour l'état de la case située à la ligne et la colonne données.
     # Utiliser le paramètre 'etat', qui est une valeur de l'Enum Contenu (VIDE, PROIE, PREDATEUR).
+
+    case = obtenir_case(grille, ligne, col)
+    case["etat"] = etat
+
     pass
 
 

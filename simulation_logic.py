@@ -32,7 +32,30 @@ def deplacer_animal(grille, ligne, col, animal):
     # TODO: Trouver un voisin vide où déplacer l'animal, effectuer le déplacement et mettre à jour l'état
     # et la disponibilité de l'animal. Utiliser "choix_voisin_autour", "definit_etat", "definir_animal",
     # "definir_disponibilite" et "vider_case" pour réaliser ces étapes.
+
+    #Trouver un case voisine ou on peut deplacer
+
+    nb_case_voisine, lig_voisin, col_voisin = choix_voisin_autour(grille, ligne, col, Contenu.VIDE)
+
+    #changer la case voisine par les propriete(etat, animal) de ancienne case
+    definir_animal(grille, animal, lig_voisin, col_voisin)
+    definir_disponibilite(animal, False)
+
+    #vider ancienne case
+    vider_case(grille, ligne, col)
+
     pass
+
+grille= creer_grille(5, 5)
+
+animal = creer_animal(age=2, energie=MIN_ENERGIE)
+
+definir_etat(grille, Contenu.PREDATEUR, 2, 2)
+definir_animal(grille, animal , 2, 2)
+
+deplacer_animal(grille, 2, 2, animal)
+print(animal["disponible"] is False)
+print(obtenir_etat(grille, 2, 2) == Contenu.VIDE)
 
 
 def executer_cycle_proie(grille, ligne, col, animal):
