@@ -40,31 +40,25 @@ def creer_grille(nb_lignes, nb_colonnes):
 def obtenir_case(grille, ligne, colonne):
     # TODO: Creer une fonction qui recupere un case specifique dans la grille
 
-    #entrer dans le dictionnaire pour acceder a la matrice
+    case = grille["matrice"][ligne][colonne]
 
-    dans_matrice = grille["matrice"]
-
-    #selectionner la case specifique 
-    case_specifique = dans_matrice[ligne][colonne]
-
-    return case_specifique
+    return case
 
 
 def obtenir_etat(grille, ligne, colonne):
     
     # TODO: Creer une fonction qui recupere un case specifique dans la grille et revoie simplement etat de la case
 
-    #entrer dans le dictionnaire pour acceder a la matrice
+    return grille["matrice"][ligne][colonne]["etat"]
 
-    dans_matrice = grille["matrice"]
-    
 
-    #selectionner la case specifique 
-    case_specifique = dans_matrice[ligne][colonne]
-    #selection la secontion etat dans la case
-    etat_dans_case = case_specifique["etat"]
+def definir_etat(grille, etat, ligne, col):
+    # TODO: Mettre à jour l'état de la case située à la ligne et la colonne données.
+    # Utiliser le paramètre 'etat', qui est une valeur de l'Enum Contenu (VIDE, PROIE, PREDATEUR).
 
-    return etat_dans_case
+    grille["matrice"][ligne][col]["etat"] = etat
+
+    return grille
 
 
 def obtenir_animal(grille, ligne, colonne):
@@ -81,28 +75,23 @@ def obtenir_animal(grille, ligne, colonne):
 
 def definir_animal(grille, animal, ligne, col):
     # TODO: Placer un animal (sous forme de dictionnaire) sur la case indiquée par les coordonnées (ligne, col).
-    
-    #matrice 
-    dans_matrice = grille["matrice"]
+
     #creer une case
-    case = {"etat": Contenu.VIDE, "animal" : animal}
+    case = obtenir_case(grille, ligne, col)
 
     #remplace la case avec animal et son contenu
-    dans_matrice[ligne][col] = case
+    case["animal"] = animal
     
-    pass
+    return grille
 
 
 def definir_case(grille, case, ligne, col):
-    #TODO cette fonction effectue la meme chose que definir_animal, mais actuallise aussi le contenu de la case
-
-    #matrice 
-    dans_matrice = grille["matrice"]
+    #TODO cette fonction actuallise la case
 
     #remplace la case avec animal et son contenu
-    dans_matrice[ligne][col] = case
+    grille["matrice"][ligne][col] = case
     
-    pass
+    return grille
 
 
 def vider_case(grille, ligne, col):
@@ -288,11 +277,11 @@ def remplir_grille(grille, pourcentage_proie, pourcentage_predateur):
         positions_possibles.pop(positions_possibles.index(case_aleatoire))
         age = random.randint(0, MAX_AGE_PROIE)
         if age > NB_JRS_PUBERTE_PROIE:
-            nb_jours_gestation = random.randint(0, NB_JRS_GESTATION_PROIE)
-        case = creer_case(Contenu.PROIE, creer_animal(age, nb_jours_gestation))
-        definir_case(grille, case, case_aleatoire[0], case_aleatoire[1])    
+            nb_jours_gestation = generer_entier(1, NB_JRS_GESTATION_PROIE)
+            case = creer_case(Contenu.PROIE, creer_animal(age, nb_jours_gestation, MIN_ENERGIE, True))
+            definir_case(grille, case, case_aleatoire[0], case_aleatoire[1])    
     # TODO: Mettre à jour le compteur du nombre de proies.
-        incrementer_nb_proies(grille)
+            incrementer_nb_proies(grille)
 
     
     # TODO: Placer les prédateurs dans la grille.
@@ -304,26 +293,17 @@ def remplir_grille(grille, pourcentage_proie, pourcentage_predateur):
         positions_possibles.pop(positions_possibles.index(case_aleatoire_2))
         age_2 = random.randint(0, MAX_AGE_PRED)
         if age_2 > NB_JRS_PUBERTE_PRED:
-            nb_jours_gestation = random.randint(0, NB_JRS_GESTATION_PRED)
-        case = creer_case(Contenu.PREDATEUR, creer_animal(age_2, nb_jours_gestation))
-        definir_case(grille, case, case_aleatoire_2[0], case_aleatoire_2[1])  
+            nb_jours_gestation_2 = generer_entier(0, NB_JRS_GESTATION_PRED)
+            case = creer_case(Contenu.PREDATEUR, creer_animal(age_2, nb_jours_gestation_2, MIN_ENERGIE, True))
+            definir_case(grille, case, case_aleatoire_2[0], case_aleatoire_2[1])  
     # TODO: Mettre à jour le compteur du nombre de prédateurs.
-        incrementer_nb_predateurs(grille)
+            incrementer_nb_predateurs(grille)
     pass
 
 
-def definir_etat(grille, etat, ligne, col):
-    # TODO: Mettre à jour l'état de la case située à la ligne et la colonne données.
-    # Utiliser le paramètre 'etat', qui est une valeur de l'Enum Contenu (VIDE, PROIE, PREDATEUR).
-
-    case = obtenir_case(grille, ligne, col)
-    case["etat"] = etat
-
-    pass
 
 
 def generer_entier(min_val, max_val):
-    # TODO: Utiliser une librairie pour générer un nombre entier aléatoire entre min_val et max_val inclus.
-    # Le résultat doit être un entier.
-    pass
+    random_number = random.randint(min_val, max_val + 1)
+    return random_number
 
